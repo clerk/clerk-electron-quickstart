@@ -10,13 +10,14 @@ import { FuseV1Options, FuseVersion } from '@electron/fuses';
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
+    protocols: [{ name: 'Clerk Electron Quickstart', schemes: ['clerk-electron-quickstart'] }],
   },
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({}),
     new MakerZIP({}, ['darwin']),
-    new MakerRpm({}),
-    new MakerDeb({}),
+    new MakerRpm({ options: { mimeType: ['x-scheme-handler/clerk-electron-quickstart'] } }),
+    new MakerDeb({ options: { mimeType: ['x-scheme-handler/clerk-electron-quickstart'] } }),
   ],
   plugins: [
     new VitePlugin({
