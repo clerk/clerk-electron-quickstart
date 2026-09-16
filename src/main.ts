@@ -70,7 +70,7 @@ const applyContentSecurityPolicy = () => {
             [
               "default-src 'self'",
               `script-src 'self' 'unsafe-inline' https://${FAPI_HOST} https://challenges.cloudflare.com https://*.protect.clerk.com`,
-              `connect-src 'self' https://${FAPI_HOST} https://*.protect.clerk.com:*`,
+              `connect-src 'self' https://${FAPI_HOST} https://*.protect.clerk.com:* https://clerk-telemetry.com https://*.clerk-telemetry.com`,
               "img-src 'self' https://img.clerk.com data:",
               "style-src 'self' 'unsafe-inline'",
               "worker-src 'self' blob:",
