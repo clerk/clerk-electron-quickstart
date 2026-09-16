@@ -36,12 +36,15 @@
     "@vitejs/plugin-react": "^4.7.0",
     "electron": "44.4.1",
     "eslint": "^8.57.1",
+    "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-import": "^2.32.0",
     "typescript": "^5.9.3",
     "vite": "^5.4.21"
   },
   "dependencies": {
+    "@clerk/electron": "^0.0.44",
     "electron-squirrel-startup": "^1.0.1",
+    "electron-store": "^8.2.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   }
