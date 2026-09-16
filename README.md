@@ -36,13 +36,14 @@ After following the quickstart you'll have learned how to:
 - Set up Clerk in the main process, preload script, and renderer
 - Add a Content Security Policy that allows Clerk's UI to load
 - Sign up and sign in with email and password
+- Keep the window on your renderer's origin with a navigation guard, so a remote page can never inherit the preload script and Clerk's token cache
 
 The extra configuration in this repo (not part of the quickstart):
 
 - `renderer` scheme registration and `protocol.handle` in `src/main.ts` so OAuth and SSO return to the app through a deep link
 - `packagerConfig.protocols` and the Linux `mimeType` entries in `forge.config.ts`
 - `applyContentSecurityPolicy` in `src/main.ts`: the packaged app gets its Content Security Policy from a response header on the custom-scheme origin, without the dev server's `'unsafe-eval'` and localhost allowances that the `index.html` meta tag carries
-- A navigation guard in `createWindow()` (`will-navigate` and `setWindowOpenHandler`) that keeps the window on the renderer's own origin and opens other links in the system browser, so a remote page can never inherit the preload script and Clerk's token cache
+- The navigation guard's allowlist also includes the custom scheme origin (the quickstart allows only the dev server)
 
 ## Running the app
 

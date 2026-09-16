@@ -100,8 +100,9 @@ const createWindow = () => {
     },
   })
 
-  // Keep the Clerk bridge inside this app: navigation to another origin would carry the
-  // preload (and the token cache) to a page you do not control.
+  // Keep the Clerk bridge inside this app: navigation to another origin, including a
+  // server-side redirect to one, would carry the preload (and the token cache) to a
+  // page you do not control.
   const allowedOrigins = new Set(
     [MAIN_WINDOW_VITE_DEV_SERVER_URL, `${RENDERER_SCHEME}://${RENDERER_HOST}`]
       .filter((value): value is string => Boolean(value))
@@ -114,6 +115,12 @@ const createWindow = () => {
       if (url.startsWith('https://') || url.startsWith('http://')) {
         void shell.openExternal(url)
       }
+    }
+  })
+
+  mainWindow.webContents.on('will-redirect', (event, url) => {
+    if (event.isMainFrame && !allowedOrigins.has(originOf(url))) {
+      event.preventDefault()
     }
   })
 
