@@ -1,4 +1,3 @@
-import { passkeys } from '@clerk/electron/passkeys'
 import { ClerkProvider } from '@clerk/electron/react'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -13,7 +12,7 @@ if (!PUBLISHABLE_KEY) {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} passkeys={passkeys}>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
       <App />
     </ClerkProvider>
   </StrictMode>,

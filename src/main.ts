@@ -1,6 +1,6 @@
 import { createClerkBridge } from '@clerk/electron'
 import { storage } from '@clerk/electron/storage'
-import { app, BrowserWindow, net, protocol, session } from 'electron'
+import { app, BrowserWindow, net, protocol, session, shell } from 'electron'
 import started from 'electron-squirrel-startup'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -12,6 +12,13 @@ if (started) {
 
 const RENDERER_SCHEME = 'clerk-electron-quickstart'
 const RENDERER_HOST = 'app'
+
+// `new URL(...).origin` is the string 'null' for a non-special scheme like
+// clerk-electron-quickstart://, so compare on the scheme and host instead.
+const originOf = (url: string) => {
+  const parsed = new URL(url)
+  return `${parsed.protocol}//${parsed.host}`
+}
 
 const FAPI_HOST = import.meta.env.VITE_CLERK_FRONTEND_API_HOST
 
@@ -91,6 +98,30 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
+  })
+
+  // Keep the Clerk bridge inside this app: navigation to another origin would carry the
+  // preload (and the token cache) to a page you do not control.
+  const allowedOrigins = new Set(
+    [MAIN_WINDOW_VITE_DEV_SERVER_URL, `${RENDERER_SCHEME}://${RENDERER_HOST}`]
+      .filter((value): value is string => Boolean(value))
+      .map(originOf),
+  )
+
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    if (!allowedOrigins.has(originOf(url))) {
+      event.preventDefault()
+      if (url.startsWith('https://') || url.startsWith('http://')) {
+        void shell.openExternal(url)
+      }
+    }
+  })
+
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (url.startsWith('https://') || url.startsWith('http://')) {
+      void shell.openExternal(url)
+    }
+    return { action: 'deny' }
   })
 
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {

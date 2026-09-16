@@ -2,7 +2,7 @@
   "name": "clerk-electron-quickstart",
   "productName": "clerk-electron-quickstart",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Clerk authentication in an Electron Forge app, built from the Electron quickstart",
   "main": ".vite/build/main.js",
   "private": true,
   "scripts": {
