@@ -47,13 +47,13 @@ The extra configuration in this repo (not part of the quickstart):
 
 ## Running the app
 
-1. `npm install`
+1. `pnpm install`
 2. Copy `.env.example` to `.env` and set `VITE_CLERK_PUBLISHABLE_KEY` and `VITE_CLERK_FRONTEND_API_HOST` from the API keys page in the Clerk Dashboard
 3. Enable the Native API on the **Native applications** page in the Clerk Dashboard
 4. Allow the dev server origin on your instance: run the `curl -X PATCH https://api.clerk.com/v1/instance …` command from the quickstart's [Allow your app's origin](https://clerk.com/docs/electron/getting-started/quickstart#allow-your-apps-origin) step with `http://localhost:5173`
-5. `npm start`
+5. `pnpm start`
 
-OAuth needs a packaged build and two more Dashboard/API settings: add `clerk-electron-quickstart://app` to `allowed_origins` and `clerk-electron-quickstart://app/` to the mobile SSO redirect allowlist, as the [OAuth deep links guide](https://clerk.com/docs/guides/configure/auth-strategies/oauth-deep-links) shows; then `npm run package` and launch the app from `out/`.
+OAuth needs a packaged build and two more Dashboard/API settings: add `clerk-electron-quickstart://app` to `allowed_origins` and `clerk-electron-quickstart://app/` to the mobile SSO redirect allowlist, as the [OAuth deep links guide](https://clerk.com/docs/guides/configure/auth-strategies/oauth-deep-links) shows; then `pnpm package` and launch the app from `out/`.
 
 ## Learn more
 
