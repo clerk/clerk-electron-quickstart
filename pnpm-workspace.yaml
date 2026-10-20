@@ -3,6 +3,7 @@ nodeLinker: hoisted
 
 allowBuilds:
   esbuild: true
+  # Copies the 7-Zip binary that maker-squirrel needs to build Windows installers
   electron-winstaller: true
   browser-tabs-lock: false
   bufferutil: false

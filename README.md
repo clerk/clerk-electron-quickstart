@@ -47,6 +47,8 @@ The extra configuration in this repo (not part of the quickstart):
 
 ## Running the app
 
+Install [Node.js](https://nodejs.org) 22.13 or later and [pnpm](https://pnpm.io/installation). If you've enabled Corepack, run `corepack disable pnpm` first; Corepack can't run pnpm 12.
+
 1. `pnpm install`
 2. Copy `.env.example` to `.env` and set `VITE_CLERK_PUBLISHABLE_KEY` and `VITE_CLERK_FRONTEND_API_HOST` from the API keys page in the Clerk Dashboard
 3. Enable the Native API on the **Native applications** page in the Clerk Dashboard
